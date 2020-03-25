@@ -1,19 +1,67 @@
-<mdb-card>
-  <!--Card image-->
-  <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
-  <!--Card content-->
-  <mdb-card-body>
+<div class="container my-4">
 
-    <!--Title-->
-    <mdb-card-title>
-      <h4>Card Title</h4>
-    </mdb-card-title>
 
-    <!--Text-->
-    <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
+  <mdb-card>
+    <mdb-card-body>
+
+      <mdb-card-title>
+        <h4>Book an appointment</h4>
+      </mdb-card-title>
+
+      <form>
+        <div class="col">
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+              <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect>Select barber</button>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <app-barber *ngIf="this.selectedBarber" [barber]="this.selectedBarber"></app-barber>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+              <button mdbBtn type="button" color="default" outline="true" mdbWavesEffect>Select service</button>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <app-service *ngIf="this.selectedService" [service]="this.selectedService"></app-service>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="md-form ">
+                <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+                <label for="fullname">Full name</label>
+                <input mdbInput type="text" id="fullname" class="form-control">
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+              <div class="md-form ">
+                <mdb-icon fas icon="phone" class="prefix"></mdb-icon>
+                <label for="phone">Phone number</label>
+                <input mdbInput type="tel" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </form>
+
+      <!-- <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
       content.
-    </mdb-card-text>
+    </mdb-card-text> -->
 
-    <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
-  </mdb-card-body>
-</mdb-card>
+      <!-- <p>text</p> -->
+
+      <!-- <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a> -->
+    </mdb-card-body>
+  </mdb-card>
+
+</div>

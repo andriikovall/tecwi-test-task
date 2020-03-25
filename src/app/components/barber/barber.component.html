@@ -1,0 +1,16 @@
+<mdb-card>
+  <mdb-card-header>
+    <h5>{{this.barber.fullname}}</h5>
+  </mdb-card-header>
+  <mdb-card-body>
+    <div class="row">
+      <div class="col-2"> <img [src]="this.barber.photoUrl" alt="barber photo" class="rounded "></div>
+      <div class="col-10">
+        <mdb-card-text>
+          {{this.barber.bio || 'Bo bio provided'}}
+        </mdb-card-text>
+      </div>
+    </div>
+  </mdb-card-body>
+  <mdb-card-footer class="text-muted">Some footer info</mdb-card-footer>
+</mdb-card>

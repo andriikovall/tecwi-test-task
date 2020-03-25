@@ -9,10 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BarberComponent } from './components/barber/barber.component';
+import { ServiceComponent } from './components/service/service.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    BarberComponent,
+    ServiceComponent,
   ],
   imports: [
     BrowserModule,
