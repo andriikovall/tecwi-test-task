@@ -3,6 +3,7 @@ import { Barber } from './interfaces/barber';
 import { Service } from './interfaces/service';
 import { MDBModalService } from 'angular-bootstrap-md';
 import { BarberModalComponent } from './components/modals/barber-modal/barber-modal.component';
+import { ServicesModalComponent } from './components/modals/services-modal/services-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,13 @@ export class AppComponent implements OnInit {
   onSelectBarbers() {
     const modalRef = this.modalService.show(BarberModalComponent);
     modalRef.content.response.subscribe(b => this.selectedBarber = b);
+  }
+
+  onSelectService() {
+    if (this.selectedBarber) {
+      const modalRef = this.modalService.show(ServicesModalComponent, { data: { barber: this.selectedBarber } });
+      modalRef.content.response.subscribe(s => this.selectedService = s);
+    }
   }
 
 }

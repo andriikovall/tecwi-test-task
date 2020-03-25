@@ -1,14 +1,25 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <h4>Choose your barber</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="this.modalRef.hide()">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
+<!-- <div class="modal-dialog " role="document"> -->
+  <div class="modal-content modal-dialog-scrollable" style="height: 100wh; overflow-y: scroll">
+    <div class="modal-header">
+      <h4>Choose your barber</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="this.modalRef.hide()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ng-container *ngIf="this.barbers; else elseTemplate">
+        <ul>
+          <li *ngFor="let b of this.barbers">
+            <app-barber [barber]="b" (click)="this.onBarberSelected(b)"></app-barber>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <div class="spinner-border text-info" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </ng-template>
 
-  <div class="modal-body">
-    <ul>
-      <li *ngFor="let b of this.barbers"><app-barber [barber]="b" (click)="this.onBarberSelected(b)"></app-barber></li>
-    </ul>
+    </div>
   </div>
-</div>
+<!-- </div> -->

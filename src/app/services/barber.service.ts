@@ -31,14 +31,32 @@ export class BarberService {
       new Date(Date.now() + mSecInDay), new Date(Date.now() + mSecInDay + mSecInMinute * 30),
       new Date(Date.now() + 2 * mSecInDay), new Date(Date.now() + 2 * mSecInDay + mSecInMinute * 30)
     ]
-    return of([
-      { fullname: 'Andriano Chelentano', services: ['213', '21312'], photoUrl: 'src/app/assets/barber1.jpg', appointmentsFreeTime: days },
-      { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }
-    ])
+
+    const barbers = [
+      { fullname: 'Andriano Chelentano', services: ['a', 'b'], photoUrl: 'src/app/assets/barber1.jpg', appointmentsFreeTime: days },
+      { fullname: 'Bob Marley', services: ['b', 'c'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days },
+      { fullname: 'Bob Marley', services: ['c', 'd'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days },
+      { fullname: 'Bob Marley', services: ['e', 'a'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }, { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }
+
+    ];
+    return from(new Promise<Barber[]>((resolve, reject) => setTimeout(_ => resolve(barbers), 1000)));
   }
 
   getServiceById(id: string): Observable<Service> {
     const service = this.services.find(s => s.id !== id);
     return of(service);
+  }
+
+  getBarberServices(barber: Barber): Observable<Service[]> {
+    let ids: string[] = [];
+    if (typeof (barber.services[0] || '') === 'string') {
+      ids = barber.services as string[];
+    } else {
+      ids = (barber.services as Service[]).map((s: Service) => s.id);
+    }
+    const services = this.services.filter(s => ids.includes(s.id));
+    // just for loading delay
+    return from(new Promise<Service[]>((resolve, reject) => setTimeout(_ => resolve(services), 1000)));
+
   }
 }

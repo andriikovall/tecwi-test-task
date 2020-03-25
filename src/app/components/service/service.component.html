@@ -1,17 +1,17 @@
-<mdb-card>
+<mdb-card class="my-3">
   <mdb-card-header>
     <h5>{{this.service.name}}</h5>
   </mdb-card-header>
   <mdb-card-body>
     <div class="row">
-      <div class="col-2"> <img [src]="this.service.photoUrl || this.placeholderServiceImageUrl" alt="Service photo"
+      <div class="col-4"> <img [src]="this.service.photoUrl || this.placeholderServiceImageUrl" alt="Service photo"
           class="rounded "></div>
-      <div class="col-10">
+      <div class="col-8">
         <mdb-card-text>
           {{ this.service.decription || 'Bo bio provided' }}
         </mdb-card-text>
       </div>
     </div>
   </mdb-card-body>
-  <mdb-card-footer class="text-muted">Lorem inpsum</mdb-card-footer>
+  <mdb-card-footer><a href="#">Learn more...</a></mdb-card-footer>
 </mdb-card>
