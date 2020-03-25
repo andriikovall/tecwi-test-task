@@ -5,9 +5,15 @@
     <mdb-card-body>
 
       <mdb-card-title>
-        <h4>Book an appointment</h4>
+        <h2>Book an appointment</h2>
       </mdb-card-title>
       <hr>
+
+      <mdb-card-text>
+        <h4>
+          Select barber and the service
+        </h4>
+      </mdb-card-text>
 
       <form>
         <div class="col">
@@ -17,19 +23,20 @@
 
               <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect
                 (click)="this.onSelectBarbers()">Select barber</button>
-                <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
-                  <app-barber [barber]="this.selectedBarber"></app-barber>
-                </ng-container>
-                <ng-template #elseBarberTemplate>
-                  <div class="alert alert-warning" role="alert">
-                    No barber selected
-                  </div>
-                </ng-template>
+              <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
+                <app-barber [barber]="this.selectedBarber"></app-barber>
+              </ng-container>
+              <ng-template #elseBarberTemplate>
+                <div class="alert alert-warning" role="alert">
+                  No barber selected
+                </div>
+              </ng-template>
 
             </div>
             <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
 
-              <button (click)="onSelectService()" mdbBtn type="button" color="default" outline="true" mdbWavesEffect [disabled]="!this.selectedBarber">
+              <button (click)="onSelectService()" mdbBtn type="button" color="default" outline="true" mdbWavesEffect
+                [disabled]="!this.selectedBarber">
                 Select service</button>
               <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
                 <app-service [service]="this.selectedService"></app-service>
@@ -44,16 +51,26 @@
           </div>
 
 
-          <!-- <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+
+
+
+          <mdb-card-text>
+            <h4>
+              Select day and time
+            </h4>
+          </mdb-card-text>
+
+
+          <div class="date-cards">
+            <div class="date-card" *ngFor="let day of this.availableDays" (click)="this.onDaySelected(day)">
+              {{day.caption}} - {{day.selected}}
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
-
-
+          </div>
+          <div class="time-cards">
+            <div class="time-card" *ngFor="let time of this.availableTime">
+              {{time.caption}} - {{time.selected}}
             </div>
-          </div> -->
-
-
+          </div>
 
           <div class="row">
 
@@ -73,7 +90,6 @@
             </div>
 
           </div>
-
         </div>
       </form>
 

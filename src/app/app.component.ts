@@ -4,6 +4,8 @@ import { Service } from './interfaces/service';
 import { MDBModalService } from 'angular-bootstrap-md';
 import { BarberModalComponent } from './components/modals/barber-modal/barber-modal.component';
 import { ServicesModalComponent } from './components/modals/services-modal/services-modal.component';
+import * as moment from 'moment';
+import { AvailableDay, AvailableTime } from './interfaces/availableDayAndTime';
 
 @Component({
   selector: 'app-root',
@@ -15,15 +17,44 @@ export class AppComponent implements OnInit {
   selectedBarber: Barber;
   selectedService: Service;
 
-  constructor(private modalService: MDBModalService) {}
+  availableDays: AvailableDay[];
+  availableTime: AvailableTime[];
+
+  dayTimeMap = new Map<number, Date[]>();
+
+  constructor(private modalService: MDBModalService) { }
 
   ngOnInit(): void {
 
   }
 
+  private setAvailableDays() {
+    this.availableDays = [];
+    for (const key of this.dayTimeMap.keys()) {
+      const value: Date[] = this.dayTimeMap.get(key).filter(date => date.getDate());
+      const availableDay: AvailableDay = {
+        availableTime: value,
+        caption: moment(value[0]).format('MMM Do'),
+        selected: false,
+      }
+      this.availableDays.push(availableDay);
+    }
+  }
+
+  onDaySelected(day: AvailableDay) {
+    console.log('day.availableTime:', day.availableTime)
+    this.availableTime = day.availableTime.map(date => {
+      return {
+        caption: moment(date).format('hh:mm'),
+        date: date,
+        selected: false
+      }
+    });
+  }
+
   onSelectBarbers() {
     const modalRef = this.modalService.show(BarberModalComponent);
-    modalRef.content.response.subscribe(b => this.selectedBarber = b);
+    modalRef.content.response.subscribe(b => this.onBarberSelected(b));
   }
 
   onSelectService() {
@@ -32,5 +63,14 @@ export class AppComponent implements OnInit {
       modalRef.content.response.subscribe(s => this.selectedService = s);
     }
   }
+
+  onBarberSelected(b: Barber) {
+    this.selectedBarber = b;
+    for (const date of this.selectedBarber.appointmentsFreeTime) {
+      this.dayTimeMap.set(date.getDay(), [...(this.dayTimeMap.get(date.getDay()) || []), date]);
+    }
+    this.setAvailableDays();
+  }
+
 
 }
