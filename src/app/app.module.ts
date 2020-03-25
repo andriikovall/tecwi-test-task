@@ -11,12 +11,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BarberComponent } from './components/barber/barber.component';
 import { ServiceComponent } from './components/service/service.component';
+import { BarberModalComponent } from './components/modals/barber-modal/barber-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BarberComponent,
     ServiceComponent,
+    BarberModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { ServiceComponent } from './components/service/service.component';
   ],
   providers: [
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ BarberModalComponent ]
 })
 export class AppModule { }

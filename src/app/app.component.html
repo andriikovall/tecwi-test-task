@@ -7,28 +7,46 @@
       <mdb-card-title>
         <h4>Book an appointment</h4>
       </mdb-card-title>
+      <hr>
 
       <form>
         <div class="col">
 
           <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
-              <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect>Select barber</button>
+            <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
+              <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect
+                (click)="this.onSelectBarbers()">Select barber</button>
+                <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
+                  <app-barber [barber]="this.selectedBarber"></app-barber>
+                </ng-container>
+                <ng-template #elseBarberTemplate>
+                  <div class="alert alert-warning" role="alert">
+                    No barber selected
+                  </div>
+                </ng-template>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <app-barber *ngIf="this.selectedBarber" [barber]="this.selectedBarber"></app-barber>
-            </div>
-          </div>
-
-
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+            <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
               <button mdbBtn type="button" color="default" outline="true" mdbWavesEffect>Select service</button>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <app-service *ngIf="this.selectedService" [service]="this.selectedService"></app-service>
+              <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
+                <app-service [service]="this.selectedService"></app-service>
+              </ng-container>
+              <ng-template #elseServiceTemplate>
+                <div class="alert alert-warning">
+                  No service selected
+                </div>
+              </ng-template>
             </div>
           </div>
+
+
+          <!-- <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 text-center">
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+
+
+            </div>
+          </div> -->
 
 
 

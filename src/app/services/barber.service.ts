@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Barber } from '../interfaces/barber';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { Service } from '../interfaces/service';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class BarberService {
     { 'id': 'e', 'name': 'Sincere talk about life', 'price': 1 },
   ]
 
-  getAllBarbers(): Observable<Barber> {
+  getAllBarbers(): Observable<Barber[]> {
     const mSecInDay = 86400000;
     const mSecInMinute = 60000;
     const days: Date[] = [
@@ -31,10 +31,10 @@ export class BarberService {
       new Date(Date.now() + mSecInDay), new Date(Date.now() + mSecInDay + mSecInMinute * 30),
       new Date(Date.now() + 2 * mSecInDay), new Date(Date.now() + 2 * mSecInDay + mSecInMinute * 30)
     ]
-    return of(
+    return of([
       { fullname: 'Andriano Chelentano', services: ['213', '21312'], photoUrl: 'src/app/assets/barber1.jpg', appointmentsFreeTime: days },
       { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }
-    )
+    ])
   }
 
   getServiceById(id: string): Observable<Service> {

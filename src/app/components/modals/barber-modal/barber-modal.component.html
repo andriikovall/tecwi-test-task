@@ -1,0 +1,14 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4>Choose your barber</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="this.modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <ul>
+      <li *ngFor="let b of this.barbers"><app-barber [barber]="b" (click)="this.onBarberSelected(b)"></app-barber></li>
+    </ul>
+  </div>
+</div>
