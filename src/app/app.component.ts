@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const nameValidators = [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.pattern('[a-zA-Z ]+')];
+    const nameValidators = [Validators.required, Validators.maxLength(100), Validators.pattern('[a-zA-Z ]+'), this.nameValidator(5)];
 
     this.form = new FormGroup({
       name: new FormControl('', nameValidators),
@@ -111,6 +111,7 @@ export class AppComponent implements OnInit {
     for (const date of this.selectedBarber.appointmentsFreeTime) {
       this.dayTimeMap.set(date.getDay(), [...(this.dayTimeMap.get(date.getDay()) || []), date]);
     }
+    this.selectedService = null;
     this.setAvailableDays();
   }
 
@@ -128,9 +129,17 @@ export class AppComponent implements OnInit {
     };
   }
 
+  nameValidator(minLength: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const name: string = control.value;
+      return name.trim().length >= minLength ? null : ({ nameTrimmedLengthError: { name } });
+    };
+  }
+
   onSubmit() {
     const result = {
-      ...this.form.value,
+      name: this.nameControl.value.trim(),
+      phoneNumber: this.phoneControl.value.trim(),
       date: this.selectedDateTime,
       barber: this.selectedBarber,
       service: this.selectedService

@@ -42,9 +42,9 @@ export class BarberService {
     const barbers = [
       { fullname: 'Andriano Chelentano', services: ['a', 'b'], photoUrl: 'assets/barber1.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
       { fullname: 'Bob Marley', services: ['b', 'c'], photoUrl: 'assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
-      { fullname: 'Bob Marley', services: ['c', 'd'], photoUrl: 'assets/barber3.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
-      { fullname: 'Bob Marley', services: ['e', 'a'], photoUrl: 'assets/barber1.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
-      { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) }
+      { fullname: 'Andre', services: ['c', 'd'], photoUrl: 'assets/barber3.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Ilon Mask', services: ['e', 'a'], photoUrl: 'assets/barber1.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Markus Barber', services: ['213', '21sdfds12'], photoUrl: 'assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) }
 
     ];
     return from(new Promise<Barber[]>((resolve, reject) => setTimeout(_ => resolve(barbers), 1000)));
