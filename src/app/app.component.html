@@ -1,18 +1,18 @@
 <div class="container my-sm-0 px-sm-0">
+  <mdb-card>
+
+    <mdb-card-body>
+
+      <mdb-card-title>
+        <h2>Book an appointment</h2>
+      </mdb-card-title>
+
+      <div class="dropdown-divider"></div>
 
 
-  <!-- <mdb-card> -->
-  <mdb-card-body>
-
-    <mdb-card-title>
-      <h2>Book an appointment</h2>
-    </mdb-card-title>
-    <hr>
-
-
-    <div class="col">
-      <mdb-card-text>
-        <h4>
+      <div class="col mt-sm-1 mt-md-3 mt-lg-3">
+        <mdb-card-text>
+          <h4>
           Select barber and the service
         </h4>
       </mdb-card-text>
@@ -21,7 +21,7 @@
         <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
 
           <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect
-            (click)="this.onSelectBarbers()">Select barber</button>
+          (click)="this.onSelectBarbers()">Select barber</button>
           <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
             <app-barber [barber]="this.selectedBarber"></app-barber>
           </ng-container>
@@ -35,31 +35,31 @@
         <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
 
           <button (click)="onSelectService()" mdbBtn type="button" color="default" outline="true" mdbWavesEffect
-            [disabled]="!this.selectedBarber">
+          [disabled]="!this.selectedBarber">
             Select service</button>
-          <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
-            <app-service [service]="this.selectedService"></app-service>
-          </ng-container>
-          <ng-template #elseServiceTemplate>
-            <div class="alert alert-warning">
-              No service selected
-            </div>
-          </ng-template>
+            <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
+              <app-service [service]="this.selectedService"></app-service>
+            </ng-container>
+            <ng-template #elseServiceTemplate>
+              <div class="alert alert-warning">
+                No service selected
+              </div>
+            </ng-template>
 
+          </div>
         </div>
-      </div>
 
 
-      <mdb-card-text *ngIf="this.selectedBarber">
-        <h4>
-          Select day and time
-        </h4>
-      </mdb-card-text>
+        <mdb-card-text *ngIf="this.selectedBarber">
+          <h4>
+            Select day and time
+          </h4>
+        </mdb-card-text>
 
 
-      <div class="date-cards my-2">
-        <div class="date-card ml-1 mb-1" *ngFor="let day of this.availableDays">
-          <button mdbBtn type="button" block="true" color="primary" mdbWavesEffect [class.active]="day.selected"
+        <div class="date-cards my-2">
+          <div class="date-card ml-1 mb-1" *ngFor="let day of this.availableDays">
+            <button mdbBtn type="button" block="true" color="primary" mdbWavesEffect [class.active]="day.selected"
             (click)="onDaySelected(day)">
             {{day.caption}}
           </button>
@@ -68,14 +68,14 @@
       <div class="time-cards my-2">
         <div class="time-card ml-1 mb-1" *ngFor="let time of this.availableTime">
           <button mdbBtn type="button" block="true" color="light" mdbWavesEffect [class.active]="time.selected"
-            (click)="onTimeSelected(time)">
-            {{time.caption}}
-          </button>
-        </div>
+          (click)="onTimeSelected(time)">
+          {{time.caption}}
+        </button>
+      </div>
       </div>
 
       <form [formGroup]="this.form">
-      <div class="row">
+        <div class="row">
 
 
           <div class="col-sm-12 col-md-6 col-lg-6">
@@ -95,17 +95,19 @@
               <input mdbInput mdbValidate type="tel" id="phone" formControlName="phone" class="form-control">
               <mdb-error *ngIf="phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)">Invalid phone
                 number</mdb-error>
+              </div>
             </div>
+
           </div>
+        </form>
 
-        </div>
-      </form>
-
-    </div>
+      </div>
 
 
-    <button mdbBtn type="submit" mdbWavesEffect color="success" [disabled]="!this.canBeSubmited" (click)="onSubmit()">Submit appointment</button>
-  </mdb-card-body>
-  <!-- </mdb-card> -->
+      <button mdbBtn type="submit" mdbWavesEffect color="success" [disabled]="!this.canBeSubmited"
+      (click)="onSubmit()">Submit appointment</button>
+    </mdb-card-body>
+    <!-- </mdb-card> -->
 
+  </mdb-card>
 </div>
