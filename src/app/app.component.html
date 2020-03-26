@@ -2,106 +2,110 @@
 
 
   <!-- <mdb-card> -->
-    <mdb-card-body>
+  <mdb-card-body>
 
-      <mdb-card-title>
-        <h2>Book an appointment</h2>
-      </mdb-card-title>
-      <hr>
+    <mdb-card-title>
+      <h2>Book an appointment</h2>
+    </mdb-card-title>
+    <hr>
 
+
+    <div class="col">
       <mdb-card-text>
         <h4>
           Select barber and the service
         </h4>
       </mdb-card-text>
 
-      <form>
-        <div class="col">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
 
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
-
-              <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect
-                (click)="this.onSelectBarbers()">Select barber</button>
-              <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
-                <app-barber [barber]="this.selectedBarber"></app-barber>
-              </ng-container>
-              <ng-template #elseBarberTemplate>
-                <div class="alert alert-warning" role="alert">
-                  No barber selected
-                </div>
-              </ng-template>
-
+          <button mdbBtn type="button" color="info" outline="true" mdbWavesEffect
+            (click)="this.onSelectBarbers()">Select barber</button>
+          <ng-container *ngIf="this.selectedBarber; else elseBarberTemplate">
+            <app-barber [barber]="this.selectedBarber"></app-barber>
+          </ng-container>
+          <ng-template #elseBarberTemplate>
+            <div class="alert alert-warning" role="alert">
+              No barber selected
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
+          </ng-template>
 
-              <button (click)="onSelectService()" mdbBtn type="button" color="default" outline="true" mdbWavesEffect
-                [disabled]="!this.selectedBarber">
-                Select service</button>
-              <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
-                <app-service [service]="this.selectedService"></app-service>
-              </ng-container>
-              <ng-template #elseServiceTemplate>
-                <div class="alert alert-warning">
-                  No service selected
-                </div>
-              </ng-template>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 text-center my-2">
 
+          <button (click)="onSelectService()" mdbBtn type="button" color="default" outline="true" mdbWavesEffect
+            [disabled]="!this.selectedBarber">
+            Select service</button>
+          <ng-container *ngIf="this.selectedService; else elseServiceTemplate">
+            <app-service [service]="this.selectedService"></app-service>
+          </ng-container>
+          <ng-template #elseServiceTemplate>
+            <div class="alert alert-warning">
+              No service selected
+            </div>
+          </ng-template>
+
+        </div>
+      </div>
+
+
+      <mdb-card-text>
+        <h4>
+          Select day and time
+        </h4>
+      </mdb-card-text>
+
+
+      <div class="date-cards my-2">
+        <div class="date-card ml-1 mb-1" *ngFor="let day of this.availableDays">
+          <button mdbBtn type="button" block="true" color="primary" mdbWavesEffect [class.active]="day.selected"
+            (click)="onDaySelected(day)">
+            {{day.caption}}
+          </button>
+        </div>
+      </div>
+      <div class="time-cards my-2">
+        <div class="time-card ml-1 mb-1" *ngFor="let time of this.availableTime">
+          <button mdbBtn type="button" block="true" color="light" mdbWavesEffect [class.active]="time.selected"
+            (click)="onTimeSelected(time)">
+            {{time.caption}}
+          </button>
+        </div>
+      </div>
+
+      <form [formGroup]="this.form">
+      <div class="row">
+
+
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="md-form ">
+              <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+              <label for="fullname">Full name</label>
+              <input mdbInput mdbValidate type="text" formControlName="name" id="fullname" class="form-control">
+              <mdb-error *ngIf="nameControl.invalid && (nameControl.dirty || nameControl.touched)">Invalid name
+              </mdb-error>
             </div>
           </div>
 
-
-          <mdb-card-text>
-            <h4>
-              Select day and time
-            </h4>
-          </mdb-card-text>
-
-
-          <div class="date-cards my-2">
-            <div class="date-card ml-1 mb-1" *ngFor="let day of this.availableDays">
-              <button mdbBtn type="button" block="true" color="primary" mdbWavesEffect [class.active]="day.selected" (click)="onDaySelected(day)">
-                {{day.caption}}
-              </button>
-            </div>
-          </div>
-          <div class="time-cards my-2">
-            <div class="time-card ml-1 mb-1" *ngFor="let time of this.availableTime">
-              <button mdbBtn type="button" block="true" color="light"  mdbWavesEffect [class.active]="time.selected" (click)="onTimeSelected(time)">
-                {{time.caption}}
-              </button>
+          <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="md-form ">
+              <mdb-icon fas icon="phone" class="prefix"></mdb-icon>
+              <label for="phone">Phone number</label>
+              <input mdbInput mdbValidate type="tel" id="phone" formControlName="phone" class="form-control">
+              <mdb-error *ngIf="phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)">Invalid phone
+                number</mdb-error>
             </div>
           </div>
 
-          <div class="row">
-
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <div class="md-form ">
-                <mdb-icon fas icon="user" class="prefix"></mdb-icon>
-                <label for="fullname">Full name</label>
-                <input mdbInput type="text" id="fullname" class="form-control">
-              </div>
-            </div>
-            <div class="col-sm-12 col-md-6 col-lg-6">
-              <div class="md-form ">
-                <mdb-icon fas icon="phone" class="prefix"></mdb-icon>
-                <label for="phone">Phone number</label>
-                <input mdbInput type="tel" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control">
-              </div>
-            </div>
-
-          </div>
         </div>
       </form>
 
-      <!-- <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-      content.
-    </mdb-card-text> -->
+    </div>
 
-      <!-- <p>text</p> -->
 
-      <!-- <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a> -->
-    </mdb-card-body>
+    <button mdbBtn type="submit" mdbWavesEffect color="success" [disabled]="!this.canBeSubmited" (click)="onSubmit()">Submit appointment</button>
+  </mdb-card-body>
   <!-- </mdb-card> -->
 
 </div>

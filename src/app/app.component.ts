@@ -6,6 +6,7 @@ import { BarberModalComponent } from './components/modals/barber-modal/barber-mo
 import { ServicesModalComponent } from './components/modals/services-modal/services-modal.component';
 import * as moment from 'moment';
 import { AvailableDay, AvailableTime } from './interfaces/availableDayAndTime';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,12 @@ export class AppComponent implements OnInit {
 
   selectedBarber: Barber;
   selectedService: Service;
+  selectedDateTime: Date;
 
   availableDays: AvailableDay[];
   availableTime: AvailableTime[];
+
+  form: FormGroup;
 
   dayTimeMap = new Map<number, Date[]>();
 
@@ -26,6 +30,29 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
+    const nameValidators = [Validators.required, Validators.minLength(5), Validators.maxLength(100), Validators.pattern('[a-zA-Z ]+')];
+
+    this.form = new FormGroup({
+      name: new FormControl('', nameValidators),
+      phone: new FormControl('', this.phoneNumberValidator())
+    });
+  }
+
+  get phoneControl() {
+    return this.form.get('phone');
+  }
+
+  get nameControl() {
+    return this.form.get('name');
+  }
+
+  get canBeSubmited() {
+    return this.form.valid
+            && this.selectedService
+            && this.selectedBarber
+            && this.selectedDateTime
+            && this.availableTime.some(t => t.selected)
+            && this.availableTime.some(d => d.selected);
   }
 
   private setAvailableDays() {
@@ -39,6 +66,7 @@ export class AppComponent implements OnInit {
       }
       this.availableDays.push(availableDay);
     }
+    this.clearAvailableTime();
   }
 
   onDaySelected(day: AvailableDay) {
@@ -46,7 +74,7 @@ export class AppComponent implements OnInit {
     this.availableDays.forEach(d => d.selected = false);
     day.selected = !prevSelected;
     if (!day.selected) {
-      this.availableTime = [];
+      this.clearAvailableTime();
     } else {
       this.availableTime = day.availableTime.map(date => {
         return {
@@ -62,6 +90,7 @@ export class AppComponent implements OnInit {
     const prevSelected = time.selected;
     this.availableTime.forEach(d => d.selected = false);
     time.selected = !prevSelected;
+    this.selectedDateTime = time.date;
   }
 
   onSelectBarbers() {
@@ -82,6 +111,32 @@ export class AppComponent implements OnInit {
       this.dayTimeMap.set(date.getDay(), [...(this.dayTimeMap.get(date.getDay()) || []), date]);
     }
     this.setAvailableDays();
+  }
+
+  clearAvailableTime() {
+    this.availableTime = [];
+    this.selectedDateTime = null;
+  }
+
+  phoneNumberValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const phoneNumber: string = control.value;
+      const phoneNumberLength = phoneNumber.split(' ').join('').length;
+      const containsOnlyNumbersAndSpaces = /^[ 0-9]+$/g.test(phoneNumber);
+      return phoneNumberLength >= 10 && containsOnlyNumbersAndSpaces ? null : ({ error: { phoneNumberLength, containsOnlyNumbersAndSpaces } });
+    };
+  }
+
+  onSubmit() {
+    const result = {
+      ...this.form.value,
+      date: this.selectedDateTime,
+      barber: this.selectedBarber,
+      service: this.selectedService
+    };
+
+    console.log(result);
+
   }
 
 
