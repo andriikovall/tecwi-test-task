@@ -42,14 +42,26 @@ export class AppComponent implements OnInit {
   }
 
   onDaySelected(day: AvailableDay) {
-    console.log('day.availableTime:', day.availableTime)
-    this.availableTime = day.availableTime.map(date => {
-      return {
-        caption: moment(date).format('hh:mm'),
-        date: date,
-        selected: false
-      }
-    });
+    const prevSelected = day.selected;
+    this.availableDays.forEach(d => d.selected = false);
+    day.selected = !prevSelected;
+    if (!day.selected) {
+      this.availableTime = [];
+    } else {
+      this.availableTime = day.availableTime.map(date => {
+        return {
+          caption: moment(date).format('hh:mm'),
+          date: date,
+          selected: false
+        }
+      });
+    }
+  }
+
+  onTimeSelected(time: AvailableTime) {
+    const prevSelected = time.selected;
+    this.availableTime.forEach(d => d.selected = false);
+    time.selected = !prevSelected;
   }
 
   onSelectBarbers() {

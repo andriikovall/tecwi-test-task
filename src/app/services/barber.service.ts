@@ -23,20 +23,28 @@ export class BarberService {
     { 'id': 'e', 'name': 'Sincere talk about life', 'price': 1 },
   ]
 
-  getAllBarbers(): Observable<Barber[]> {
+
+  private generateRandomFutureDates(count: number): Date[] {
+    const dates: Date[] = [];
     const mSecInDay = 86400000;
     const mSecInMinute = 60000;
-    const days: Date[] = [
-      new Date('10:00'), new Date('10:30'), new Date('11:00'), new Date('11:30'),
-      new Date(Date.now() + mSecInDay), new Date(Date.now() + mSecInDay + mSecInMinute * 30),
-      new Date(Date.now() + 2 * mSecInDay), new Date(Date.now() + 2 * mSecInDay + mSecInMinute * 30)
-    ]
+
+    for (let i = 0; i < count; i++) {
+      const date = new Date(Date.now() + Math.random() * count * mSecInDay + Math.random() * 60 * mSecInMinute * 30);
+      dates.push(date);
+    }
+
+    return dates.sort((d1, d2) => d1 > d2 ? 1 : -1);
+  }
+
+  getAllBarbers(): Observable<Barber[]> {
 
     const barbers = [
-      { fullname: 'Andriano Chelentano', services: ['a', 'b'], photoUrl: 'src/app/assets/barber1.jpg', appointmentsFreeTime: days },
-      { fullname: 'Bob Marley', services: ['b', 'c'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days },
-      { fullname: 'Bob Marley', services: ['c', 'd'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days },
-      { fullname: 'Bob Marley', services: ['e', 'a'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }, { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: days }
+      { fullname: 'Andriano Chelentano', services: ['a', 'b'], photoUrl: 'src/app/assets/barber1.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Bob Marley', services: ['b', 'c'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Bob Marley', services: ['c', 'd'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Bob Marley', services: ['e', 'a'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) },
+      { fullname: 'Bob Marley', services: ['213', '21sdfds12'], photoUrl: 'src/app/assets/barber2.jpg', appointmentsFreeTime: this.generateRandomFutureDates(Math.random() * 100) }
 
     ];
     return from(new Promise<Barber[]>((resolve, reject) => setTimeout(_ => resolve(barbers), 1000)));

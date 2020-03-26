@@ -1,0 +1,17 @@
+.date-cards, .time-cards {
+  display: grid;
+  gap: 1em;
+}
+
+.date-cards {
+  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+}
+
+.time-cards {
+  grid-template-columns: repeat(auto-fill, minmax(auto, 120px));
+}
+
+.btn-outline-primary[class~="active"] {
+  color: darken($color: blue, $amount: 50);
+}
+

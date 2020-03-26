@@ -1,7 +1,7 @@
-<div class="container my-4">
+<div class="container my-sm-0 px-sm-0">
 
 
-  <mdb-card>
+  <!-- <mdb-card> -->
     <mdb-card-body>
 
       <mdb-card-title>
@@ -51,9 +51,6 @@
           </div>
 
 
-
-
-
           <mdb-card-text>
             <h4>
               Select day and time
@@ -61,14 +58,18 @@
           </mdb-card-text>
 
 
-          <div class="date-cards">
-            <div class="date-card" *ngFor="let day of this.availableDays" (click)="this.onDaySelected(day)">
-              {{day.caption}} - {{day.selected}}
+          <div class="date-cards my-2">
+            <div class="date-card ml-1 mb-1" *ngFor="let day of this.availableDays">
+              <button mdbBtn type="button" block="true" color="primary" mdbWavesEffect [class.active]="day.selected" (click)="onDaySelected(day)">
+                {{day.caption}}
+              </button>
             </div>
           </div>
-          <div class="time-cards">
-            <div class="time-card" *ngFor="let time of this.availableTime">
-              {{time.caption}} - {{time.selected}}
+          <div class="time-cards my-2">
+            <div class="time-card ml-1 mb-1" *ngFor="let time of this.availableTime">
+              <button mdbBtn type="button" block="true" color="light"  mdbWavesEffect [class.active]="time.selected" (click)="onTimeSelected(time)">
+                {{time.caption}}
+              </button>
             </div>
           </div>
 
@@ -101,6 +102,6 @@
 
       <!-- <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a> -->
     </mdb-card-body>
-  </mdb-card>
+  <!-- </mdb-card> -->
 
 </div>
