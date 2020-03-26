@@ -23,7 +23,7 @@ export class BarberService {
     { 'id': 'e', 'name': 'Sincere talk about life', 'price': 1 },
   ]
 
-
+  // to simulate different possible data from server
   private generateRandomFutureDates(count: number): Date[] {
     const dates: Date[] = [];
     const mSecInDay = 86400000;
