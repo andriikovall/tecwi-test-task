@@ -13,6 +13,7 @@ import { BarberComponent } from './components/barber/barber.component';
 import { ServiceComponent } from './components/service/service.component';
 import { BarberModalComponent } from './components/modals/barber-modal/barber-modal.component';
 import { ServicesModalComponent } from './components/modals/services-modal/services-modal.component';
+import { ResultModalComponent } from './components/modals/result-modal/result-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ServicesModalComponent } from './components/modals/services-modal/servi
     ServiceComponent,
     BarberModalComponent,
     ServicesModalComponent,
+    ResultModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,6 @@ import { ServicesModalComponent } from './components/modals/services-modal/servi
   providers: [
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ BarberModalComponent, ServicesModalComponent ]
+  entryComponents: [ BarberModalComponent, ServicesModalComponent, ResultModalComponent ]
 })
 export class AppModule { }

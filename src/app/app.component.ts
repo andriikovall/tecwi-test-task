@@ -7,6 +7,7 @@ import { ServicesModalComponent } from './components/modals/services-modal/servi
 import * as moment from 'moment';
 import { AvailableDay, AvailableTime } from './interfaces/availableDayAndTime';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { ResultModalComponent } from './components/modals/result-modal/result-modal.component';
 
 @Component({
   selector: 'app-root',
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit {
     } else {
       this.availableTime = day.availableTime.map(date => {
         return {
-          caption: moment(date).format('hh:mm'),
+          caption: moment(date).format('HH:mm'),
           date: date,
           selected: false
         }
@@ -135,8 +136,7 @@ export class AppComponent implements OnInit {
       service: this.selectedService
     };
 
-    console.log(result);
-
+    this.modalService.show(ResultModalComponent, { data: { result }});
   }
 
 
